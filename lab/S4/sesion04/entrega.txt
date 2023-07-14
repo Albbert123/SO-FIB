@@ -1,0 +1,43 @@
+Sesión 4: Comunicación de procesos 
+
+PREGUNTA 27. ¿Qué le pasa al padre ahora cuando le llega el evento SIGALRM?
+
+	El pare mor mentre que el fill continua l'execució del seu procés.
+
+PREGUNTA 28. ¿Qué pasa con la tabla de tratamientos de signals si hacemos un execlp (y cambiamos el código)? ¿Se mantiene la reprogramación de signals? ¿Se pone por defecto?
+
+	Si fem execlp el tractament de signals es restableix altre cop. Els signals que falten es 	  mantenen, de manera que el procés fill mor.
+
+PREGUNTA 29. El programa ejemplo_waitpid, ¿Es secuencial o concurrente?
+
+	Concurrent, ja que al principi del programa crea els fills i al final espera (waitpid) que 	   acabin d'executar-se.
+
+PREGUNTA 30. Ejecuta el programa alarm2 en un terminal y comprueba su PID. Abre una nueva sesión y cambia al usuario so1 (ejecuta #su so1). Intenta enviar signals al proceso que está ejecutando alarm2 desde la sesión iniciada con el usuario so1. ¿Puedes enviárselos?, ¿qué error da?
+	
+	No, no es pot enviar signals creats per un altre usuari. A pantalla es mostra l'error "bash: 		kill: (5435) - Operation not permitted".
+
+PREGUNTA 31. Crea una copia de eventos.c con el nombre eventos2.c . Modifica el código de eventos2.c para que la segunda vez que reciba el mismo signal se ejecute el comportamiento por defecto de ese signal. PISTA: consulta en la página del manual del signal la constante SIG_DFL ¿Qué mensaje muestra el Shell cuando se envía por segunda vez el mismo signal?
+
+	En el nostre cas amb els codis d'eventos2.c tots 3 signals tenen el mateix missatge.
+
+
+PREGUNTA 32. Ejecuta el programa signal_perdido pasándole como parámetro 1. Anota en el fichero respuestas.txt qué resultado observas. A continuación ejecuta de nuevo el programa pasándole como parámetro 0. 
+
+	signal_perdido paràmetre 0
+
+	Padre manda signal SIGUSR1
+	Hijo entrando al pause
+	Hijo: SIGUSR1 recibido
+
+
+	signal_perdido paràmetre 1
+
+	Hijo entrando al pause
+	Padre: voy a mandar SIGUSR1
+	Padre manda signal SIGUSR1
+	Hijo: SIGUSR1 recibido
+	Hijo sale del pause
+	Padre sale del waitpid
+
+	Al paràmetre 0 el pare envia el signal abans que el fill entri en "pause". Llavors tracta el 		signal i es queda a "pause", de manera que no acaba mai l'execució.
+	Al paràmetre 1, en canvi, el pare espera el fill a que faci "pause", de manera que enviarà el 		signal i el tractarà. Això fa que acabi l'execució correctament.

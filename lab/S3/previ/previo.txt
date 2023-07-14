@@ -1,0 +1,74 @@
+Ejemplo_fork1:
+        Soy el proceso 16900
+        Soy el proceso 16901
+        -Primero tenemos el proceso padre con el pid 16900 y luego el proceso hijo (fork) que es una copia del primero y ejecuta el mismo código.
+
+Ejemplo_fork2:
+        Antes del fork: Soy el proceso 21460
+        PADRE: Soy el proceso 21460
+        Los DOS: Soy el proceso 21460
+        HIJO: Soy el proceso 21461
+        Los DOS: Soy el proceso 21461
+        -Antes de hacer el fork se ve el pid del proceso, que será el mismo que tendrá el padre. Primero se muestra el proceso del padre y cuando acaba se muestra el mismo
+        pid que antes porque el hijo aun no ha ejecutado el código. Cuando esto acaba, se muestra el proceso del hijo y luego se vuelve a mostrar el pid pero ahora con el
+        del hijo.
+
+Ejemplo_fork3:
+        Antes del fork: Soy el proceso 25015
+        PADRE: Soy el proceso 25015
+        Solo lo ejecuta el padre: Soy el proceso 25015
+        HIJO: Soy el proceso 25016
+        -Al principio hace lo mismo que el "ejemplo_fork2", pero en este caso cuando llamamos al proceso del hijo posteriormente hacemos un exit (zombie), así que la última
+        linea de código que antes hacía tanto el padre como el hijo, ahora solo lo hace el padre ya que el hijo ha muerto antes de llegar a esa linea de código.
+        
+Ejemplo_fork4:
+        Antes del fork: Soy el proceso 26492
+        PADRE: Soy el proceso 26492
+        Solo lo ejecuta el padre: Soy el proceso 26492
+        HIJO: Soy el proceso 26493
+        HIJO acaba: Soy el proceso 26493
+        -Es lo mismo que el "ejemplo_fork3" con la diferencia de la última linea. Esta última linea aparece habidendo esperado el hijo 10000 iteraciones.
+
+Ejemplo_fork5:
+        Antes del fork: Soy el proceso 9661
+        PADRE: Soy el proceso 9661
+        HIJO: Soy el proceso 9662
+        HIJO:La variable_global vale A y la local a
+        PADRE:La variable_global vale A y la local a
+        Solo lo ejecuta el padre: Soy el proceso 9661
+        -Primero se muestra el pid antes del fork. Después se escriben el pid del padre y seguidamente el del hijo, ya que el padre tiene un waitpid y se tiene que esperar a la finalización
+        del proceso hijo. A continuación se muestran las variables globales y locales del hijo, y cuando éste muere se muestran las de padre. La última linea solo la ejecuta el padre.
+        
+Ejemplo_fork6:
+        -No se puede escribir lo que se imprime porque se ejecutan muchissimos procesos. Muestra el valor de la variable local del padre y el hijo muchas veces.
+        Acaba con al ejecución del padre mostrando su pid. Cuando ejecutamos varias veces éste programa nos damos cuenta que no siempre se imprime lo mismo, en el mismo orden, eso
+        es debido a que algunos procesos se ejecutan mas rápidos que otros y no siempre se acaba viendo el mismo resultado.
+        
+Ejemplo_fork7:
+        -El código no compila porque la variable_local no ha sido delcarada anteriormente de su uso en la funcion "Escribe_variable", por tanto salta el error. 
+        No tiene que ver con el fork, ni con los procesos padre/hijo. Si se pasa por parametro un "char variable_local" a la funcion de escribir variable, se soluciona el error:
+        
+        Antes del fork: Soy el proceso 30180
+        PADRE: Soy el proceso 30180
+        Funcion:La variable_global vale A y la local a
+        Solo lo ejecuta el padre: Soy el proceso 30180
+        HIJO: Soy el proceso 30181
+        Funcion:La variable_global vale A y la local a
+        -Primero se muestra el pid antes del fork. Seguidamente el proceso del padre y la funcion que escribe las dos variables. El padre acaba con la ejecucion que solo hace él y se
+        muestra su pid. Luego se muestra el proceso del hijo y otra vez la funcion que escribe las dos variables.
+        
+Ejemplo_exec1: 
+        Primero se escribe el pid del proceso que se ha ejecutado y después todos los ficheros y directorios de la carpeta dónde estamos ubicados. Es decir, este programa ejecuta el "ls -l".
+        Solo aparece una vez el pid en pantalla, eso se debe a que una vez es ejecutada la función "execlp", se ejecuta en el mismo proceso y sobreescrive todo lo demás, 
+        así que lo que venga después no se ejecuta.
+        
+Ejemplo_exec2:
+        Soy el proceso: 35494
+        Soy el proceso 35494    
+        Soy el proceso 35495
+        -Primero se escribe el pid del proceso de "exec2", y los dos siguientes procesos son escritos por el "ejemplo_fork1" que es llamado por el execlp. Todo lo que viene después del
+        execlp no se ejecuta.
+        
+
+Sección 2 del man: Describe todas las llamadas del sistema.
+

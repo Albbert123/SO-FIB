@@ -1,0 +1,19 @@
+alarm1:
+1. El temporizador es de 1o segundos asi que cuando pasan 5 segundos no ocurre nada.
+2. El comportamiento cambia, si enviamos la señal -KILL se muestra el mensaje "killed".
+3. El proceso Shell es el que muestra a la consola los mensaes de finalización(muerto) del proceso. Con la llamada waitpid() el sistema shell recoje el estado de finalización del proceso que ejecuta el programa cuando acaba.
+4. No, porque en la linea anterior tenemos la llamda sigsuspend() que bloquea el proceso hasta que reciba un signal, antes de qie se ejecute exit(1).
+
+alarm2:
+1. Al enviar el -ALRM no se espera los 10 segundos que debería, directamente envia el mensaje con los +10segundos sumados.
+2. No, hay signals que no se pueden modificar como SIGKILL.
+3. El valor de retorno es el tiempo restante a la siguiente alarma. Una solucion seria restar a la variable "segundos" el valor de retorno de l'alarma.
+
+alarm3: 
+1. Los dos. Se ve ejecutando el programa y esperando 10segundos, se ve en pantalla el pid del padre e hijo. 
+
+alarm4:
+1. El hijo hace 10 SIGALARMS i el padre hace 0, ya que en el switch no recibe ninguna alarma y se queda bloqueado en el sigsuspend del while. 
+
+waitpid:
+1. 

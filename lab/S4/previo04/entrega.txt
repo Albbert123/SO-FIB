@@ -1,0 +1,17 @@
+alarm1
+1. Res. El temporitzador de l'alarma és de 10 segons, per tant al cap de 5 segons no passarà res.
+2. No és el mateix comportament. Si fem kill a l'executar alarm1, es mostrarà el missatge "Killed" en comptes de "Alarm clock".
+3. El procés Shell és l'encarregat de mostrar a la consola els missatges que diuen que el procés alarm1 ha mort. Amb la crida waitpid() el sistema shell recull l'estat de finalització del procés que executa alarm1 quan ha acabat.
+4. No, perquè a la línia anterior a aquest tenim la crida sigsuspend() que ens suspen el procés abans de que s'executi exit(1).
+
+alarm2
+1. Al posar el comandament kill seguidament del pid corresponent al procés d'alarm2, salta a la següent instrucció sense tenir en compte el temporitzador. Acaba amb un "Terminated".
+2. No, SIGKILL no es pot modificar el seu tractament per exemple.
+3. El valor de retorn és el temps restant a la següent alarma. Una solució possible podria ser restar a la variable "segundos" el valor que retorna la funció de l'alarma.
+
+alarm3
+1. Els dos. Es veu executant el programa i esperant a que el temporitzador acabi. Es mostra en pantalla el pid dels processos pare i fill, els quals salta l'alarma.
+
+alarm4
+1. El pare rep cada alarma. Quan es fa kill amb el seu corresponent pid, el procés no mostra fa "Terminated" o "Killed", simplement no surt ni fa res. Ho he comprovat executant alarm4 i mirant els missatges de la pantalla, mentre que amb un altre fitxer escric Kill seguidament del pid que correspont.
+

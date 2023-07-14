@@ -1,0 +1,73 @@
+ejemplo_fork1:
+Soy el proceso 14429
+Soy el proceso 14430
+
+El segon procés és un fork del primer, és a dir, és el procés fill. És una copia del primer que és el procés pare.
+
+ejemplo_fork2:
+Antes del fork: Soy el proceso 14539
+PADRE: Soy el proceso 14539
+HIJO: Soy el proceso 14540
+Los DOS: Soy el proceso 14539
+Los DOS: Soy el proceso 14540
+
+La primera línia es llegeix el PID del procés creat abans de fer el fork.
+Després de fer el fork, a les dues línies següents es mostra el PID del procés pare (PADRE) i del fill (HIJO).
+A les següents dues línies es mostra, altre cop sense cap condició, el PID dels processos tant el pare com el fill.
+
+ejemplo_fork3:
+Antes del fork: Soy el proceso 15076
+PADRE: Soy el proceso 15076
+HIJO: Soy el proceso 15077
+Solo lo ejecuta el padre: Soy el proceso 15076
+
+Les 3 primeres línies fan el mateix que l'ejemplo_fork2. La diferència la trobem a l'última línia on s'executa i es mostra el PID del pare.
+
+ejemplo_fork4:
+Antes del fork: Soy el proceso 15108
+PADRE: Soy el proceso 15108
+HIJO: Soy el proceso 15109
+Solo lo ejecuta el padre: Soy el proceso 15108
+HIJO acaba: Soy el proceso 15109
+
+El mateix que a ejemplo_fork3 (i amb el mateix ordre) però a l'última línia s'escriu altre cop el PID del procés fill. En aquest cas però l'últim procés s'executa al principi i es guanya temps amb un for de 0 a 10000 de manera que apareix al final (HIJO acaba)
+
+ejemplo_fork5:
+Antes del fork: Soy el proceso 15323
+PADRE: Soy el proceso 15323
+HIJO: Soy el proceso 15324
+HIJO:La variable_global vale A y la local a
+PADRE:La variable_global vale A y la local a
+Solo lo ejecuta el padre: Soy el proceso 15323
+
+Com als anteriors exemples, a la primera línia es mostra el PID abans de fer el fork. Un cop es fa el fork, s'escriuen el PID del procés pare i del fill.
+Seguidament es mostra la variable global i local del procés fill i del pare, que són les mateixes perquè declarem les variables abans de fer el fork i, per tant, les variables del procés fill seran una copia de les del pare.
+A lúltima línia s'executa el procés pare altre cop i llegim el seu PID.
+
+ejemplo_fork6:
+No puc copiar el que apareix a pantalla ja que són milers de línies, és a dir, s'executen milers de processos.
+A pantalla es mostra la variable global del pare i del fill milers de vegades. Acaba executant el procés pare mostrant el seu PID.
+Quan executem el programa diverses vegades veiem que no surt el mateix en pantalla degut a que cada vegada s'executen alguns processos més ràpids que d'altres de manera diferent.
+
+ejemplo_fork7:
+A l'escriure make -f Makefile.ejemplos per compilar ejemplo_fork7 no em compila correctament. M'apareix un error que diu que la variable_local no s'ha declarat. No té res a veure amb el fet de crear processos.
+Si es declara abans posant char variable_local i l'igualem a 'a' per exemple, llavors si que compila i si executem es mostra el següent:
+
+Antes del fork: Soy el proceso 16117
+PADRE: Soy el proceso 16117
+Funcion:La variable_global vale A y la local a
+HIJO: Soy el proceso 16118
+Funcion:La variable_global vale A y la local a
+Solo lo ejecuta el padre: Soy el proceso 16117
+
+Primer es mostra el PID del procés pare i seguidament s'entra a la funció Escribe_variables on es mostrarà el valor de la variable global i local. Seguidament es mostra el mateix per al procés fill on les variables són les mateixes que les del pare, ja que amb el fork es fa una còpia. El missatge de la consola acaba executant el procés pare i mostrant el seu PID.
+
+ejemplo_exec1:
+A la pantalla apareix el PID del procés que hem executat i seguidament tots els fitxers i directoris de la carpeta on estem ubicats. El que fa aquest programa és executar el comandament ls -l.
+Només apareix una vegada en pantalla el PID del programa i es deu a que, si mirem el codi de ejemplo_exec1.c, un cop s'executa  s'executa la funció execlp el procés creat per la mateixa crida sobreescriu l'anterior, de manera que tot el que vingui després no s'executarà.
+
+ejemplo_exec2:
+Soy el proceso: 17377
+Soy el proceso 17377
+Soy el proceso 17378
+A la 1a línia s'escriu el PID del procés que executem i les dues següents són escrites per ejemplo_fork1 quan el cridem amb la funció execlp. Com ha passat abans a ejemplo_exec1, amb la funció execlp, tot el que ve darrera d'aquesta no s'executarà i el procés que executem es sobreescriurà a l'anterior.

@@ -1,0 +1,4 @@
+PREGUNTA 18. ¿Qué opción has tenido que añadir al gcc para generar el fichero objecto? ¿Qué opción has tenido que añadir al gcc para que el compilador encuentre el fichero mis_funciones.h? 
+
+He afegit els fitxers mis_funciones.c i mis_funciones.h i ho he afegit correctament al makefile.
+Com a opcions he utilitzat la -c per compilar cadascun dels fitxers .c. Seguidament ja ho podem compilar tot junt amb l'opció -o.

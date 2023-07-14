@@ -1,0 +1,99 @@
+Sesión 3: Procesos
+PREGUNTA 19. ¿Cómo puede saber un proceso el pid de sus hijos? ¿Qué llamada pueden utilizar los procesos para consultar su propio PID?
+Un procés sap el PID dels fills a partir de la crida de fork() que retorna un enter amb el PID del fill. Un procés sap el seu propi PID a partir de la crida de getpid().
+
+PREGUNTA 20. ¿En qué casos se ejecutará cualquier código que aparezca justo después de la llamada execlp (En cualquier caso/ En caso que el execlp se ejecute de forma correcta/ En caso que el exclp falle)?
+En caso que el exclp falle.
+
+PREGUNTA 21. ¿Qué directorios hay dentro de /proc/PID_PADRE? ¿Qué opción de ls has usado?
+total 0
+dr-xr-xr-x 2 alumne alumne 0 oct  14 17:37 attr
+dr-x------ 2 alumne alumne 0 oct  14 17:37 fd
+dr-x------ 2 alumne alumne 0 oct  14 17:37 fdinfo
+dr-x------ 2 alumne alumne 0 oct  14 17:37 map_files
+dr-xr-xr-x 5 alumne alumne 0 oct  14 17:37 net
+dr-x--x--x 2 alumne alumne 0 oct  14 17:37 ns
+dr-xr-xr-x 3 alumne alumne 0 oct  14 17:37 task
+
+He utilitzat el comandament ls -l
+
+
+PREGUNTA 22. Apunta el contenido de los ficheros status y cmdline. Compara el contenido del fichero environ con el resultado del comando env (fíjate por ejemplo en la variable PATH y la variable PWD) ¿Qué relación hay? Busca en el contenido del fichero status el estado en el que se encuentra el proceso y apúntalo en el fichero de respuestas. 
+	cmdline: ./myPS_v0 alumne
+
+	status: 
+
+	Name:	myPS_v0
+	Umask:	0022
+	State:	R (running)
+	Tgid:	5690
+	Ngid:	0
+	Pid:	5690
+	PPid:	4588
+	TracerPid:	0
+	Uid:	1002	1002	1002	1002
+	Gid:	1002	1002	1002	1002
+	FDSize:	256
+	Groups:	1002 
+	NStgid:	5690
+	NSpid:	5690
+	NSpgid:	5690
+	NSsid:	4588
+	VmPeak:	    4472 kB
+	VmSize:	    4376 kB
+	VmLck:	       0 kB
+	VmPin:	       0 kB
+	VmHWM:	     716 kB
+	VmRSS:	     716 kB
+	RssAnon:	      64 kB
+	RssFile:	     652 kB
+	RssShmem:	       0 kB
+	VmData:	      44 kB
+	VmStk:	     132 kB
+	VmExe:	       4 kB
+	VmLib:	    2112 kB
+	VmPTE:	      52 kB
+	VmSwap:	       0 kB
+	HugetlbPages:	       0 kB
+	CoreDumping:	0
+	Threads:	1
+	SigQ:	0/31295
+	SigPnd:	0000000000000000
+	ShdPnd:	0000000000000000
+	SigBlk:	0000000000000000
+	SigIgn:	0000000000000000
+	SigCgt:	0000000000000000
+	CapInh:	0000000000000000
+	CapPrm:	0000000000000000
+	CapEff:	0000000000000000
+	CapBnd:	0000003fffffffff
+	CapAmb:	0000000000000000
+	NoNewPrivs:	0
+	Seccomp:	0
+	Speculation_Store_Bypass:	thread vulnerable
+	Cpus_allowed:	ff
+	Cpus_allowed_list:	0-7
+	Mems_allowed 00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+	Mems_allowed_list:	0
+	voluntary_ctxt_switches:	0
+	nonvoluntary_ctxt_switches:	439
+
+El procés es troba en R -> Running
+
+PREGUNTA 23. ¿A qué ficheros "apuntan" los ficheros cwd y exe? ¿Cuál crees que es el significado de cwd y exe?
+cwd -> /home/andreuorensanz/S3/S3
+exe -> /home/andreuorensanz/S3/S3/myPS
+
+cwd apunta al directori on es troben els fitxers que a l'executar crea el procés pare. exe apunta directament al procés pare
+
+PREGUNTA 24. ¿Puedes mostrar el contenido de los ficheros environ, status y cmdline del proceso hijo? ¿En qué estado se encuentra el hijo?
+Amb myPS_v0 no ho puc mostrar, suposo que es degut a que està en estat zombie el fill.
+Amb myPS sí que es pot mostrar ja que ara el procés fill està en running
+
+PREGUNTA 25. Comprueba el fichero status de /proc/PID_PADRE /proc/PID_HIJO(s). ¿En qué estado está el proceso padre? ¿En qué estado están los hijos?  
+El myPS del pare es troba en S --> Sleep.
+El myPS dels fills es troben en R --> Running
+
+PREGUNTA 26. ¿Qué has hecho para guardar la salida de las ejecuciones de myPS3?
+
+
