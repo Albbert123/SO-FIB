@@ -1,0 +1,20 @@
+./sin_nombre > fd
+
+PREGUNTA 67.¿Qué contiene el fichero al final de la ejecución?¿Contiene la salida del padre y
+del hijo, o sólo la del padre? ¿Cómo se explica ese contenido?
+
+inici
+fin
+Es lógico, puesto que ambos procesos (pade e hijo) escriben en el canal de salida estándar.
+
+PREGUNTA 68.¿Acaba el programa padre? ¿y el hijo? ¿Por qué?
+
+No acaba el programa padre y el hijo tampoco, ya que el canal nunca se cierra y el hijo se queda
+bloqueado esperando que llegue mas cosa por la pipe hasta que se cierre el canal.
+
+PREGUNTA 69.Si quisiéramos que el lector también pudiera enviar un mensaje al escritor
+¿podríamos utilizar la misma pipe con nombre o deberíamos crear otra? Razona la respuesta.
+
+Deberíamos crear otra pipe, si escribieramos en la actual no habría forma de distinguir entre los mensajes del escritor y 
+los nuestros, es decir, sería posible "robarle" los datos que enviamos al receptor. A no ser de que pusieramos de acuerdo 
+ambos procesos al momento de saber cual es el que envia el mensaje y quien lo recibe, utilizando signals, por ejemplo.

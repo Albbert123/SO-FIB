@@ -1,0 +1,78 @@
+1.
+a) #df -T
+S.ficheros     Tipo  bloques de 1K   Usados Disponibles Uso% Montado en
+tmpfs          tmpfs        601972     2224      599748   1% /run
+/dev/nvme0n1p7 ext4      100205640 34268512    60800744  37% /
+tmpfs          tmpfs       3009840    33684     2976156   2% /dev/shm
+tmpfs          tmpfs          5120        4        5116   1% /run/lock
+/dev/nvme0n1p2 vfat          98304    34953       63351  36% /boot/efi
+tmpfs          tmpfs        601968       80      601888   1% /run/user/125
+tmpfs          tmpfs        601968      120      601848   1% /run/user/1000
+
+b) #df -i
+
+c) #df -h
+
+
+2.
+a)
+Fichero: pr.txt
+  Tamaño: 15        	Bloques: 8          Bloque E/S: 4096   fichero regular
+Dispositivo: 10307h/66311d	Nodo-i: 3282779     Enlaces: 2
+
+Fichero: sl_pr -> pr.txt
+  Tamaño: 6         	Bloques: 0          Bloque E/S: 4096   enlace simbólico
+Dispositivo: 10307h/66311d	Nodo-i: 3286214     Enlaces: 1
+
+Fichero: hl_pr
+  Tamaño: 15        	Bloques: 8          Bloque E/S: 4096   fichero regular
+Dispositivo: 10307h/66311d	Nodo-i: 3282779     Enlaces: 2
+
+El número de links son las veces que aparece en la tabla de ficheros.
+Sí, pr.txt y hl_pr tienen el mismo inodo, porque es un hard link y apunta al mismo nodo.
+
+b)
+sl_pr:
+#cat : esto es prueba
+#namei: f: sl_pr
+ l sl_pr -> pr.txt
+   - pr.txt
+#readlink: pr.txt
+
+hl_pr:
+#cat: esto es prueba
+#namei: f: hl_pr
+ - hl_pr
+#readlink: -
+
+En namei de sl tenemos un enlace que apunta a pr.txt y en readlink muestra hacia donde apunta, en cambio en hl no tiene enlace por lo tanto no lo muestra.
+
+c)
+sl_pr:
+#stat: Fichero: 'sl_pr' -> 'pr.txt'
+  Tamaño: 6         	Bloques: 0          Bloque E/S: 4096   enlace simbólico
+Dispositivo: 801h/2049d	Nodo-i: 938278      Enlaces: 1
+
+#cat sl_pr
+cat: sl_pr: No existe el archivo o el directorio
+#namei sl_pr
+f: sl_pr
+ l sl_pr -> pr.txt
+     pr.txt - No existe el archivo o directorio
+#readlink sl_pr
+pr.txt
+
+hl_pr:
+#stat hl_pr
+Fichero: 'hl_pr'
+  Tamaño: 19        	Bloques: 8          Bloque E/S: 4096   fichero regular
+Dispositivo: 801h/2049d	Nodo-i: 938240      Enlaces: 1
+#cat hl_pr
+esto es una prueba
+#namei hl_pr
+f: hl_pr
+ - hl_pr
+#readlink hl_pr
+
+Las diferencias estan en que el sl_pr sigue apuntando al pr.txt, pero cuando intenta acceder no existe.
+
