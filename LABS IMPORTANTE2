@@ -1,0 +1,57 @@
+SESION 5 --> MEMORIA
+
+- Ejecutable 
+        - tamaño --> ls-l
+        - símbolos --> nm , objdump
+        
+- Proceso
+        - Espacio direcciones --> /proc/ptd/maps
+        - SBFH(0) --> limite de heap
+        r-xp --> codigo
+        rw-p --> datos
+        r--p --> constantes
+
+- sbrk --> aumenta/disminuye heap
+- malloc = puntero / free(puntero) --> pide espacio de más
+
+
+
+
+SESION 7 --> E/S
+
+Read / Write (fd,puntero,maxbytes) --> devuelve -1,0,>0(bytes léidos/escritos)
+
+- strlen --> para string (asume el /0), te de el nº de letras
+- sizeof --> tamaño variable (si es puntero 4 bytes) que usas
+
+        - byte a byte:
+        char c;
+        while(read(0,&c,sizeof(char)) > 0) 
+                write(1,&c,sizeof(char));
+        
+        - por buffer:
+        char buf[1024];
+        int leído;
+        while((leído = read(0,buf,sizeof(buf))) > 0) //lee el tamaño que he reservado
+                write(1,buf,leído); //escribe lo que se ha leído
+                
+   
+                
+SESION 8 --> E/S        
+
+- fichero pipe(con nombre):
+        - Creamos desde terminal --> mknod nombrePipe --> mknod("nombre", tipo + permisos, 0) --> tipo + permisos: S_IFIFO|S_IROSR|S_IWOSR
+        - creamos en código (bloqueante) --> open("nombre", O_RDONLY o O_WRONLY | O_NONBLOCK) para si nos  bloqueasemos no hacer open.
+        
+- pipe en memoria(sin nombre):
+        int fd[2];
+        pipe(fd); --> fd[0] lectura i fd[1] escritura
+        crearlo antes de hacer forks
+        
+       
+SESION 9 --> FICHEROS
+        Open(nombre,O_WRONLY|O_RDONLY|O_RDWR|O_CREAT|O_TRUNC,0600)
+        lseek(fichero,posicion,SEEK_CUR(ahora)|SEEK_SET(valor concreto)|SEEK_END(final))
+        
+        Read/write --> ++pos de lseek
+        tamaño fichero: lseek(fd,0,SEEK_END)

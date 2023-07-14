@@ -1,0 +1,71 @@
+char c:
+int num:
+
+char b1[64], b2[64];
+
+num = ...(b1)
+c = ...(b2)
+
+//se hace conversion a strings
+sprintf(b1, "%d",num) //num a string
+sprintf(b2, "%c",c) //char a string
+
+//si son strings se pasa directamente.
+
+execlp("./p1","./p1",b1,b2,NULL)
+error_y_exit("error execlp", 1)
+
+//Dsps de un execlp se pone un control de error
+
+------------------------------------------------------------------------------------------------------------------
+Jerarquia 1-N -> itera padre (ret>0)
+Jerarquia 1-1-1... -> itera hijo (ret=0)
+Concurrente -> waitpid fuera del bucle
+
+------------------------------------------------------------------------------------------------------------------
+PCB:
+        - Tabla de signals: Fork(hereda) , Execlp(Reset)
+        - Bloqueados: Fork(hereda) , Execlp(conserva)
+        - Timer: Fork(reset) , Execlp(conserva)
+        - Pendientes: Fork(reset) , Execlp(conserva)
+
+Enviar signal(kill) -> necesitamos pid
+padre manda algo a hijo -> se tiene q apuntar en el fork (pid[i] = fork)
+
+Recibir signal:
+        - Bloqueamos -> sigprocmask, con SIG_BLOCK(1 bloquea) o SIG_UNBLOCK (1 desbloquea)
+        - Reprgramar signal -> sigaction, uno por cada signal
+        - Desbloquearlo
+                - Espera activa -> bucle
+                - Espera pasiva -> sigsuspend(M) 1 blok , 0 desblok
+                
+Sigaction:
+        - sa_handler -> ignorar,defecto,funcion
+        - sa_mask -> todo 1 blok durante tratamiento
+        - sa_flags -> SA_RESTART
+----------------------------------------------------------------------------------------------------------------------
+        //NOS BLOQUEAMOS
+    sigemptyset(&mask);
+    sigaddset(&mask,SIGALRM);
+    sigaddset(&mask,SIGUSR1);
+    sigaddset(&mask,SIGINT);
+    sigprocmask(SIG_BLOCK,&mask,NULL);
+    
+        //REPROGRAMAMOS SIGALARM i SIGUSR1
+    sa.sa_handler = &trat;
+    sa.sa_flags = SA_RESTART;
+    sigfillset(&sa.sa_mask);
+
+    if(sigaction(SIGALRM,&sa,NULL) < 0) error("sigaction");
+    if(sigaction(SIGUSR1,&sa,NULL) < 0) error("sigaction");
+    if(sigaction(SIGINT,&sa,NULL) < 0) error("sigaction");
+    
+        //PONGO ALARMA Y ESPERO EVENTO
+        alarm(1); 
+        sigfillset(&mask);
+        sigdelset(&mask,SIGALRM);
+        sigdelset(&mask,SIGUSR1);
+        sigdelset(&mask,SIGINT);
+        sigsuspend(&mask);
+   
+   
