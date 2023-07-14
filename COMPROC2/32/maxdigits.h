@@ -1,0 +1,1 @@
+#define MAXDIGITS 10

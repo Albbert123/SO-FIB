@@ -1,0 +1,25 @@
+Implementa los siguientes programas ("prog1" y "micat") donde el resultado final será la contabilización del número de caracteres que tienen los ficheros que se introducen como parámetros de entrada.
+
+Estos ficheros de entrada los puedes crear mediante la línea de comandos:
+
+#>echo 1234 > file.txt
+
+De esta forma, el fichero tendrá un tamaño de 5 bytes (4 caracteres y un retorno de carro introducido automáticamente por el comando "echo").
+
+El primero, "prog1", acepta un número variable de parámetros de entrada (1..N), que serán nombres de ficheros. Por un lado, el proceso principal creará tantos procesos hijo, secuenciales, como parámetros de entrada, más uno.
+
+El padre creará (1..N) procesos hijo para mutar y ejecutar "cat" del fichero i-ésimo correspondiente (pasado como parámetro de entrada al comando "cat"). Todos ellos escribirán a una misma pipe sin nombre. Además, el proceso principal creará otro proceso hijo, el N+1, que mutará para ejecutar "./micat". 
+
+Este programa, "micat", lo has de implementar. De tal forma que lee por el canal 10 y escribe por el canal 20. Así pues, el proceso padre, además de crear este hijo adicional, ha de conseguir que éste lea de la pipe sin nombre y escriba a una nueva pipe con nombre, "MIPIPE". Ha de asegurarse que la pipe exista y sino la crea desde el código fuente. De todas formas, te aconsejamos que también practiques en crearla desde la línea de comandos.
+
+Por último, el proceso padre ha de liberar los PCBs de todos sus hijos, a medida que finalicen, antes de él poder terminar. Para asegurarse que está correctamente implementado, el padre debe mostrar el mensaje "Fin Padre" antes de acabar.
+
+En otra terminal, ejecuta el comando "wc -c" (cuenta caracteres). Desde la línea de comandos se ha de redireccionar la pipe con nombre hacia la entrada estándar de este comando para que lea de ella.
+
+El resultado de la ejecución debe ser la sumatoria de los caracteres, o bytes, de todos los ficheros que se han pasado como parámetros de entrada a "prog1".
+
+Ejemplo de ejecución: a partir de un fichero (file.txt) creado como se indica al principio: 
+
+"#> ./prog1  file.txt  file.txt  file.txt"
+
+en la terminal donde ejecutamos "#>wc -c" aparecerá 15 ya que es la suma de los caracteres de file.txt que se lee tres veces.

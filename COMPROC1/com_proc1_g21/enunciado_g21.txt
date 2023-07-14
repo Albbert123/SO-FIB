@@ -1,0 +1,17 @@
+1 - Haz un programa llamado quien_soy.c. Este programa recibira un numero por parametro (que sera su numero de orden) y escribira una 
+unica frase indicando lo siguiente " Soy AAA ,  mi pid es BBB y el pid de mi padre es YYY". 
+Donde AAA es el parametro recibido, BBB es su propio PID y YYY es el pid de su padre. 
+El programa escribe la frase (utiliza sprintf+write) y termina. El valor del exit debe ser el pid de su padre.
+Haz que implemente la funcion usage para comprobar que este en parametro.
+
+2- Haz un programa llamado n_proc. Este programa recibira un numero por parametro que sera un numero de procesos a crear. 
+EL programa creara los N procesos de forma secuencial. Cada proceso hijo mutara al programa quien soy pasandole como parametro 
+el orden de creacion (0, 1, ..N). Añade el control de errores necesario
+
+Ejemplo de salida
+
+[xjcorbalan@login2301 g21]$ ./n_procs 4
+Soy 0 ,  mi pid es 2164529 y mi padre 2164528
+Soy 1 ,  mi pid es 2164530 y mi padre 2164528
+Soy 2 ,  mi pid es 2164531 y mi padre 2164528
+Soy 3 ,  mi pid es 2164532 y mi padre 2164528

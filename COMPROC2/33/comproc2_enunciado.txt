@@ -1,0 +1,42 @@
+
+
+Os facilitamos el código fuente de dos programas:
+
+* pr1.c es un programa que lee por su entrada estàndar números naturales codificados en formato interno de la màquina (tipo unsigned int, 32 bits, sin separación entre ellos) y escribe por su salida estándar dichos codificados en base 10 separados por saltos de línea.
+Por ejemplo, si utilizáis el fichero de prueba test1.bin el resultado debería ser:
+
+$ ./pr1 < test1.bin
+16122022
+666
+2001
+$
+
+* pr2.c es un programa complementario al anterior. Recibe por su entrada estándar números naturales codificados en base 10  
+(de hasta 10 dígitos, separados por saltos de línea) y escribe por su salida estándar dichos enteros en formato interno de la 
+máquina (tipo unsigned int, 32 bits, sin separación entre ellos).
+Por ejemplo, si utilizáis el fichero de prueba test1.bin, el resultado debería ser:
+
+$ ./pr1 < test1.bin > test2.txt
+$ ./pr2 < test2.txt > test2.bin
+$ cmp test1.bin test2.bin
+$
+
+La orden cmp no debería imprimir nada, lo que indica que los dos ficheros son idénticos.
+
+Se pide:
+
+1) Escribid un programa (pr3.c) que reciba como parámetros un nombre de fichero de entrada y un nombre de fichero de salida.
+El fichero de entrada contendrá enteros en formato interno de la máquina.
+En caso que el fichero de salida ya exista deberá sobreescribirse; si no existe, deberá crearse con protecciones 640.
+
+El programa deberá crear una pipe ordinaria y dos procesos que ejecutarán concurrentemente pr1 y pr2, haciendo que se comuniquen 
+mediante la pipe. Además, la entrada estándar de pr1 debe redireccionarse al fichero de entrada y la salida estándar de pr2 debe 
+redireccionarse al fichero de salida.
+
+pr3 deberá esperar la muerte de pr1 y de pr2 para finalizar.
+
+2) Escribid un programa (pr4.c) análogo al del apartado anterior pero que use una pipe con nombre en lugar de una pipe ordinaria 
+para comunicar a los procesos que ejecutan pr1 y pr2. La Named pipe debe ser creada por el programa pr4.c (en caso que no exista).
+
+Entrega: tar zcvf comproc2.tar.gz Makefile *.c
+

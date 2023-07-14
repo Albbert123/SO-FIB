@@ -1,0 +1,23 @@
+Haz un programa que llamaras num_processes. Este programa creara 3 procesos que estaran conectados por 2 pipes sin nombre. 
+EL programa recibira 2 parametros, el primero sera un nombre de un proceso de los que estan ejecutandose, y el segundo un nombre 
+de un fichero nuevo que crearemos. El programa creara los procesos y los conectara mediante las pipes de forma que ejecuten lo siguiente:
+
+ps -a |  grep NOMBRE_PROGRAMA | wc -l 
+
+Ademas el ultimo proceso (el que mutara a "wc -l") escribira el texto "El numero de procesos tipo NOMBRE_PROGRAMA es XXX", 
+donde NOMBRE_PROGRAMA es el parametro recibido en argv[1] y XXX sera la salida del ultimo proceso. 
+
+Por ejemplo, si contamos cuantos procesos de tipo ssh tenemos obtenemos lo siguiente (es un ejemplo)
+[jcorbalan@login comproc2]$ ./num_processes ssh num_ssh
+[jcorbalan@login comproc2]$ cat num_ssh
+El numero de procesos tipo ssh es 7
+
+o si contamos el propio proceso
+
+[jcorbalan@login1 comproc2]$ ./num_processes num_processes mi_propio_programa
+[jcorbalan@login1 comproc2]$ cat mi_propio_programa
+El numero de procesos tipo num_processes es 1
+
+Ten en cuenta que el fichero ha de ser creado por el programa num_processes con permisos de lectura y escritura. 
+
+

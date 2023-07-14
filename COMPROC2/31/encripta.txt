@@ -1,0 +1,18 @@
+Hacer un programa que llamaremos encripta. El programa recibira 4 argumentos. 2 nombres de fichero y 2 numeros. El programa creara dos pipes con nombre usando argv[1] y argv[2]. Se pide controlar el error en caso que la pipe ya exista. 
+
+El programa deberia eliminar las 2 pipes al acabar.
+
+Crearemos dos procesos. El primer proceso abria la primera pipe de lectura y los bytes que le vayan llegando les restara el valor recibido en argv[3] y lo escribira en un fichero de nombre mensaje_recibido. El fichero debe contener solamente la salida de cada ejecucion.
+
+El segundo proceso leera de la entrada std, a cada caracter leido le sumara el valor recibido en argv[4] y lo enviara por la segunda pipe.
+
+Este programa lo ejecutaremos en dos carpetas distintas de forma que implementaran una especie de chat encriptado. Por ejemplo, podeis ejecutar en una ventana:
+
+../encripta ../p2 ../p1 3 2
+
+y en otra 
+
+../encripta ../p1 ../p2 2 3
+
+Fijaos que los valores han de estar cruzados (p1 p2 y en el otro p2 p1) y las claves tambien ( 3 2 vs 2 3 )
+

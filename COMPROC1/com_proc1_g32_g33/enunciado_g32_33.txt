@@ -1,0 +1,18 @@
+1 - Haz un programa llamado quien_soy.c. Este programa no recibe parametros. El programa escribe un mensaje "mi pid es BBB". Donde BBB es su propio PID . El programa escribe la frase (utiliza sprintf+write) y termina. El valor del exit debe ser el valor de su PID modulo 2 (Puedes usar X % 2 en C para hacer el modulo). Por lo tanto termina con valor 0 si su PID es par y 1 si impar.
+
+2- Haz un programa llamado n_proc. Este programa recibira un numero por parametro que sera un numero de procesos a crear. EL programa creara los N procesos de forma concurrente. Cada proceso hijo mutara al programa quien_soy. Despues del bucle de creacion, el programa espera a que terminen los hijos y comprueba (usando las macros adecuadas) el valor del proceso del exit. Para cada proceso hijo, el padre escribira una frase "Termina proceso AA con resultado YY" Donde AA es el PID del proceso que ha terminado y YY es el valor que puso en el exit. 
+Añade el control de errores necesario
+
+
+
+Ejemplo de utilizacion
+
+[g32]$ ./n_procs 4
+ mi pid es 2171609 
+Termina proceso 2171609 con resultado 1
+ mi pid es 2171611 
+ mi pid es 2171610 
+Termina proceso 2171611 con resultado 1
+ mi pid es 2171612 
+Termina proceso 2171610 con resultado 0
+Termina proceso 2171612 con resultado 0
