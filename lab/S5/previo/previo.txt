@@ -1,0 +1,176 @@
+Albert Comas y alvaro terron
+
+Las direcciones son las que aparecen a la izquierda:
+
+#nm mem1_previo
+
+000000000000038c r __abi_tag
+                 U atoi@@GLIBC_2.2.5
+0000000000004010 B __bss_start
+0000000000004010 b completed.8061
+                 w __cxa_finalize@@GLIBC_2.2.5
+0000000000004000 D __data_start
+0000000000004000 W data_start
+0000000000001110 t deregister_tm_clones
+0000000000001180 t __do_global_dtors_aux
+0000000000003da0 d __do_global_dtors_aux_fini_array_entry
+0000000000004008 D __dso_handle
+0000000000003da8 d _DYNAMIC
+0000000000004010 D _edata
+0000000000004018 B _end
+                 U exit@@GLIBC_2.2.5
+00000000000012f4 T _fini
+00000000000011c0 t frame_dummy
+0000000000003d98 d __frame_dummy_init_array_entry
+0000000000002134 r __FRAME_END__
+0000000000003f98 d _GLOBAL_OFFSET_TABLE_
+                 w __gmon_start__
+0000000000002030 r __GNU_EH_FRAME_HDR
+0000000000001000 T _init
+0000000000002000 R _IO_stdin_used
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+0000000000004014 B j
+                 U __libc_start_main@@GLIBC_2.34
+00000000000011ec T main
+0000000000001140 t register_tm_clones
+                 U sprintf@@GLIBC_2.2.5
+00000000000010e0 T _start
+                 U strlen@@GLIBC_2.2.5
+00000000000011c9 T suma
+0000000000004010 D __TMC_END__
+                 U write@@GLIBC_2.2.5
+              
+                 
+Los tipos de símbolos que nos muestra son:
+
+U -> The symbol is undefined.
+
+B / b -> The symbol is in the uninitialized data section (known as BSS).
+
+D / d -> The symbol is in the uninitialized data section (known as BSS).
+
+W / w -> The symbol is a weak symbol that has not been specifically tagged as a weak object symbol.  When a weak defined symbol is linked with a normal defined symbol, the normal defined symbol is used with no error.  When a weak undefined symbol is linked and the symbol is not defined, the value of the symbol is determined in a system-specific manner without error.  On some systems, uppercase indicates that a default value has been specified.
+
+T / t -> The symbol is in the text (code) section.
+
+R / r -> The symbol is in a read only data section.
+
+
+
+Es posible saber la dirección de la variable j ya que es una variable global pero no es posible saber la dirección de memoria de i ya que es una variable local y se asignará cuando se ejecute el programa.
+La j está en el BSS (uninitialized data section) y la i en un espacio de memoria reservado para la memoria dinámica.
+La dirección asignada de la función suma está en la sección de código.
+
+He usado el comando: 
+gcc -o mem1_previo_v2 mem1_previo_v2.c -static
+
+
+mem2:
+
+10:
+
+00400000-00401000 r--p 00000000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+00401000-00498000 r-xp 00001000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+00498000-004c1000 r--p 00098000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c2000-004c6000 r--p 000c1000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c6000-004c9000 rw-p 000c5000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c9000-004f6000 rw-p 00000000 00:00 0 
+01625000-01647000 rw-p 00000000 00:00 0                                  [heap]
+7ffe83ba4000-7ffe83bc5000 rw-p 00000000 00:00 0                          [stack]
+7ffe83bd1000-7ffe83bd5000 r--p 00000000 00:00 0                          [vvar]
+7ffe83bd5000-7ffe83bd7000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+                HEAP -> 01625000-01647000 = 0x00023000
+                DATOS -> 004c6000-004c9000
+
+40.000:
+
+00400000-00401000 r--p 00000000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+00401000-00498000 r-xp 00001000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+00498000-004c1000 r--p 00098000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c2000-004c6000 r--p 000c1000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c6000-004c9000 rw-p 000c5000 103:07 4230915                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo
+004c9000-004f6000 rw-p 00000000 00:00 0 
+015df000-01601000 rw-p 00000000 00:00 0                                  [heap]
+7ffc8666b000-7ffc8668c000 rw-p 00000000 00:00 0                          [stack]
+7ffc86725000-7ffc86729000 r--p 00000000 00:00 0                          [vvar]
+7ffc86729000-7ffc8672b000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+                HEAP -> 015df000-01601000  = 0x00023000
+                DATOS ->004c6000-004c9000
+
+
+mem2_v2:
+
+10: 
+
+00400000-00401000 r--p 00000000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+00401000-00498000 r-xp 00001000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+00498000-004c1000 r--p 00098000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c2000-004c6000 r--p 000c1000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c6000-004c9000 rw-p 000c5000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c9000-004ce000 rw-p 00000000 00:00 0 
+02389000-023ac000 rw-p 00000000 00:00 0                                  [heap]
+7ffd30429000-7ffd3044a000 rw-p 00000000 00:00 0                          [stack]
+7ffd305e6000-7ffd305ea000 r--p 00000000 00:00 0                          [vvar]
+7ffd305ea000-7ffd305ec000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+                HEAP -> 02389000-023ac000 = 0x24000
+                DATOS -> 004c6000-004c9000
+40.000:
+
+00400000-00401000 r--p 00000000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+00401000-00498000 r-xp 00001000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+00498000-004c1000 r--p 00098000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c2000-004c6000 r--p 000c1000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c6000-004c9000 rw-p 000c5000 103:07 4230922                           /home/albert/Documentos/UPC/Q3/so/lab/S5/mem2_previo_v2
+004c9000-004ce000 rw-p 00000000 00:00 0 
+020f2000-0213c000 rw-p 00000000 00:00 0                                  [heap]
+7ffde0ddb000-7ffde0dfc000 rw-p 00000000 00:00 0                          [stack]
+7ffde0ede000-7ffde0ee2000 r--p 00000000 00:00 0                          [vvar]
+7ffde0ee2000-7ffde0ee4000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+                HEAP -> 020f2000-0213c000 = 0x4B000
+                DATOS -> 004c6000-004c9000
+                
+El programa con mem_previo_v2 como tiene reserva de memoria dinamica tiene unos valores diferentes en el heap mientras que el primero mantiene un valor constante debido a que la reserva de espacio es siempre la misma.
+                
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
