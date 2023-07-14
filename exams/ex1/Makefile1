@@ -1,0 +1,9 @@
+all: mi1 mi2 mi3
+mi1:
+    gcc -o mi1 mi1.c
+mi2:
+    gcc -o mi2 mi2.c
+mi3:
+    gcc -o mi3 mi3.c
+clean:
+    rm mi1 mi2 mi2

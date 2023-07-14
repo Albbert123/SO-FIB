@@ -1,0 +1,3 @@
+A) una vez entramos en el directorio del proceso "cd /proc/pid" podemos usar el comando "more status" y nos apareceran una serie de variables, la variable State es la que nos indica el estado.
+
+B)#alias ll="ls -la" (-l i -a junts)
