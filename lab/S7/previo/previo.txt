@@ -1,0 +1,54 @@
+1. Qué valor devuelve read después de pulsar el Ctrl + D?
+Devuelve 0 en caso de encontrarse con un end of file.
+
+2. Apunta el comando utilizado para redireccionar la entrada de un fichero al programa.
+./es1 < a.txt
+
+2.2 Resultado de ejecutar #ls -l | grep es
+-rwxrwxr-x 1 albert albert 16136 nov 23 11:21 es1
+-rw-r--r-- 1 albert albert  1170 feb  8  2021 es1.c
+-rwxrwxr-x 1 albert albert 16288 nov 23 11:21 es2
+-rw-r--r-- 1 albert albert  1700 feb  8  2021 es2.c
+-rwxrwxr-x 1 albert albert 16136 nov 23 11:21 es3
+-rw-r--r-- 1 albert albert   943 feb  8  2021 es3.c
+-rwxrwxr-x 1 albert albert 16048 nov 23 11:21 es4
+-rw-r--r-- 1 albert albert  1206 feb  8  2021 es4.c
+-rwxrwxr-x 1 albert albert 15776 nov 23 11:21 es5
+-rw-r--r-- 1 albert albert    31 feb  8  2021 es5.c
+-rwxrwxr-x 1 albert albert 16048 nov 23 11:21 es6
+-rw-r--r-- 1 albert albert   112 feb  8  2021 es6.c
+-rwxrwxr-x 1 albert albert 16008 nov 23 11:21 es7
+-rw-r--r-- 1 albert albert   107 feb  8  2021 es7.c
+-rwxrwxr-x 1 albert albert 16096 nov 23 11:21 es8
+-rw-r--r-- 1 albert albert   644 feb  8  2021 es8.c
+Lista, con ls -l, unicamente los archivos que contenian "es" en el nombre, con grep es.
+
+3. Ejecuta un pipeline que muestre en la salida estándar el PID, el usuario y el nombre de
+todos los procesos bash que se están ejecutando en el sistema. Para ello utiliza los comandos ps y grep combinados con una pipe.
+ps -e u | grep bash
+
+
+5. ¿Cúantos bytes se escriben en cada caso?¿Qué diferencias observas en lo que aparece en pantalla?
+Se escriben 4 bytes en representación interna de la máquina y 5 bytes cuando se pasa a string. Ya que un entero ocupa 4 bytes 
+y para el string escribe un byte para cada carácter.
+
+En la representación interna se ven los bytes del número transformado a ascii (se ven menos de 4 bytes porque hay algunos que 
+son "no visibles") y en la string el número se imprime correctamente (en el sentido de que se ve como un número).
+
+6.
+a) ¿Qué función sirve para implementar el read específico del dispositivo
+gestionado por cada device driver?
+myDriver1 -> int read_driver_1 (struct file *f, char __user *buffer, size_t s, loff_t *off);
+myDriver2 -> int read_driver_2 (struct file *f, char __user *buffer, size_t s, loff_t *off);
+
+b) ¿Qué son el major y el minor? ¿Para qué sirven? ¿Qué major y minor
+utilizan los dos device drivers?
+El major y el minor son identificadores del driver. NORMALMENTE, el major indica el tipo de driver y el minor indica el driver en si.
+
+DRIVER 1:
+	MAJOR: 249
+	MINOR: 0
+
+DRIVER 2:
+	MAJOR: 250
+	MINOR: 0

@@ -1,0 +1,10 @@
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+read(0, "#include <string.h>\n#include <st"..., 256) = 256
+read(0, "\n    {\n      sprintf (buffer, \"u"..., 256) = 256
+read(0, "ribe los numeros en formato int\\"..., 256) = 256
+read(0, "uffer));\n      exit (1);\n    }\n\n"..., 256) = 256
+read(0, "nt)\\n\");\n  write (2, buffer, str"..., 256) = 256
+read(0, "value = rand ();\n      if (forma"..., 256) = 256
+read(0, "numero en ascii \n          // co"..., 256) = 164
+read(0, "", 256)                        = 0
++++ exited with 0 +++
